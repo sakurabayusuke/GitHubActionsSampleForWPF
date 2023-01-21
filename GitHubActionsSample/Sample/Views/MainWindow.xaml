@@ -1,0 +1,150 @@
+﻿<Window x:Class="Sample.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cv="clr-namespace:Sample.Converter"
+        xmlns:enums="clr-namespace:Sample.Enums"
+        xmlns:vm="clr-namespace:Sample.ViewModels"
+        Title="MainWindow"
+        Width="525"
+        Height="350">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Radio"
+                   TargetType="RadioButton">
+                <Setter Property="Margin"
+                        Value="0 0 24 0" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="Padding"
+                        Value="0" />
+            </Style>
+            <Style x:Key="TxtBox"
+                   TargetType="TextBox">
+                <Setter Property="InputMethod.IsInputMethodEnabled"
+                        Value="False" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Width"
+                        Value="100" />
+                <Setter Property="FontSize"
+                        Value="16" />
+            </Style>
+            <Style x:Key="TxtBlock"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="Margin"
+                        Value="0 0 0 4" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+
+    <DockPanel Margin="16">
+        <TextBlock DockPanel.Dock="Top"
+                   FontSize="24"
+                   Text="Method of calculation"
+                   Margin="0 0 0 4" />
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    Margin="0 0 0 16">
+            <RadioButton Content="Addition"
+                         Style="{StaticResource Radio}"
+                         IsChecked="{Binding Method, Converter={cv:EnumToRadioConverter}, ConverterParameter={x:Static enums:Method.Addition}}" />
+            <RadioButton Content="Subtraction"
+                         Style="{StaticResource Radio}"
+                         IsChecked="{Binding Method, Converter={cv:EnumToRadioConverter}, ConverterParameter={x:Static enums:Method.Subtraction}}" />
+            <RadioButton Content="Multiplication"
+                         Style="{StaticResource Radio}"
+                         IsChecked="{Binding Method, Converter={cv:EnumToRadioConverter}, ConverterParameter={x:Static enums:Method.Multiplication}}" />
+            <RadioButton Content="Division"
+                         Style="{StaticResource Radio}"
+                         IsChecked="{Binding Method, Converter={cv:EnumToRadioConverter}, ConverterParameter={x:Static enums:Method.Division}}" />
+        </StackPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Values"
+                   FontSize="24"
+                   Margin="0 0 0 4" />
+        <DockPanel Dock="Top"
+                   Margin="0 0 0 16">
+            <StackPanel Margin="0 0 16 0">
+                <TextBlock Text="Value1"
+                           Style="{StaticResource TxtBlock}" />
+                <TextBox Text="{Binding Value1}"
+                         Style="{StaticResource TxtBox}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 16 0">
+                <TextBlock Text="Value2"
+                           Style="{StaticResource TxtBlock}" />
+                <TextBox Text="{Binding Value2}"
+                         Style="{StaticResource TxtBox}" />
+            </StackPanel>
+        </DockPanel>
+
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Result"
+                   FontSize="24"
+                   Margin="0 0 0 4" />
+        <Button Content="Calculate"
+                Height="24"
+                Width="100"
+                DockPanel.Dock="Top"
+                HorizontalAlignment="Left"
+                Background="LimeGreen"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="16"
+                VerticalAlignment="Top"
+                Margin="0 0 0 8"
+                Command="{Binding CalCommand}"/>
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal">
+            <TextBlock Text="Value1"
+                       Style="{StaticResource TxtBlock}"/>
+            <TextBlock FontSize="16" Margin="8 0">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Method}"
+                                         Value="{x:Static enums:Method.Addition}">
+                                <Setter Property="Text"
+                                        Value="+" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Method}"
+                                         Value="{x:Static enums:Method.Subtraction}">
+                                <Setter Property="Text"
+                                        Value="-" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Method}"
+                                         Value="{x:Static enums:Method.Multiplication}">
+                                <Setter Property="Text"
+                                        Value="×" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Method}"
+                                         Value="{x:Static enums:Method.Division}">
+                                <Setter Property="Text"
+                                        Value="÷" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock Text="Value2"
+                       Style="{StaticResource TxtBlock}"
+                       Margin="0 0 8 0"/>
+            <TextBlock Text="="
+                       Style="{StaticResource TxtBlock}"
+                       Margin="0 0 8 0"/>
+            <TextBlock Text="{Binding Result}"
+                       FontSize="16"/>
+        </StackPanel>
+    </DockPanel>
+</Window>
