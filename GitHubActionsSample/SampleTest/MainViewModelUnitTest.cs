@@ -54,8 +54,8 @@ namespace SampleTest
         [TestMethod]
         public void TestMultiplication()
         {
-            var vm = new MainWindowViewModel();
-
+            MainWindowViewModel vm = new MainWindowViewModel();
+            var b = "sss";
             vm.Method = Method.Multiplication;
             vm.Value1 = "12";
             vm.Value2 = "23";
