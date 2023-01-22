@@ -43,7 +43,6 @@ namespace Sample.ViewModels
 
         private void Cal()
         {
-            var test = "aa";
             var valid1 = int.TryParse(Value1, out var num1);
             var valid2 = int.TryParse(Value2, out var num2);
             if (!valid1 || !valid2)
