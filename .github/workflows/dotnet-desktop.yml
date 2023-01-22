@@ -17,7 +17,7 @@ jobs:
 
     env:
       Solution_Name: GitHubActionsSample.sln
-      Test_Project_Path: GitHubActionsSample\SampleTest\SampleTest.csproj
+      Test_Project_Path: SampleTest\SampleTest.csproj
 
     steps:
     - name: Checkout
