@@ -17,6 +17,7 @@ jobs:
 
     env:
       Solution_Name: GitHubActionsSample.sln
+      Solution_Path: GitHubActionsSample\GitHubActionsSample.sln
       Test_Project_Path: GitHubActionsSample\SampleTest\SampleTest.csproj
 
     steps:
@@ -41,6 +42,6 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
